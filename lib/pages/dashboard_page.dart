@@ -22,16 +22,19 @@ class DashboardPage extends StatelessWidget {
               },
             ),
             ListTile(
-              title: Text('Penjumlahan & Pengurangan'),
+              title: Text('Aritmatika'),
               onTap: () {
-                Navigator.pushNamed(context, '/penjumlahan');
+                Navigator.pushNamed(context, '/Aritmatika');
               },
             ),
 
             ListTile(
-              title: Text('Perkalian & Pembagian'),
+              title: Text('Penjumlahan Total Angka Satu Field'),
               onTap: () {
-                Navigator.pushNamed(context, '/perkalian');
+                Navigator.pushNamed(
+                  context,
+                  '/Penjumlahan Total Angka Satu Field',
+                );
               },
             ),
 
