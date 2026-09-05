@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'pages/login_page.dart';
 import 'pages/dashboard_page.dart';
 import 'pages/aritmatika_page.dart';
-
+import 'pages/Ganjil_Genap_page.dart';
 import 'pages/anggota_page.dart';
 
 void main() {
@@ -10,7 +10,7 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -24,6 +24,7 @@ class MyApp extends StatelessWidget {
         '/dashboard': (context) => const DashboardPage(),
         '/anggota': (context) => const AnggotaPage(),
         '/Aritmatika': (context) => const ArithmeticPage(),
+        '/ganjil-genap': (context) => const GanjilGenapPage(),
       },
     );
   }
