@@ -52,7 +52,7 @@ class _LoginPageState extends State<LoginPage> {
                 ),
 
                 Text(
-                  'Login Aplikasi',
+                  'Aplikasi Tugas Pertama',
                   style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
                 ),
 
