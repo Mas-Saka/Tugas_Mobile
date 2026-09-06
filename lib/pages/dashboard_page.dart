@@ -62,10 +62,127 @@ class DashboardPage extends StatelessWidget {
         ),
       ),
 
-      body: Center(
-        child: Text(
-          'Selamat Datang di Dashboard',
-          style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+      body: Padding(
+        padding: EdgeInsets.all(20),
+        child: Column(
+          children: [
+            Text(
+              'Selamat Datang di Dashboard',
+              style: TextStyle(
+                fontSize: 28,
+                fontWeight: FontWeight.bold,
+                fontFamily: 'Roboto',
+              ),
+            ),
+
+            Text(
+              'Pilih fitur yang ingin digunakan',
+              style: TextStyle(fontSize: 18),
+            ),
+
+            SizedBox(height: 30),
+
+            SizedBox(
+              width: double.infinity,
+              height: 65,
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, '/Aritmatika');
+                },
+                style: ElevatedButton.styleFrom(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
+                child: Row(
+                  children: [
+                    SizedBox(width: 15),
+                    Text('Aritmatika', style: TextStyle(fontSize: 18)),
+                    Spacer(),
+                    Icon(Icons.arrow_forward_ios),
+                  ],
+                ),
+              ),
+            ),
+
+            SizedBox(height: 15),
+
+            SizedBox(
+              width: double.infinity,
+              height: 65,
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
+                onPressed: () {
+                  Navigator.pushNamed(
+                    context,
+                    '/Penjumlahan Total Angka Satu Field',
+                  );
+                },
+                child: Row(
+                  children: [
+                    SizedBox(width: 15),
+                    Text('Total Angka', style: TextStyle(fontSize: 18)),
+                    Spacer(),
+                    Icon(Icons.arrow_forward_ios),
+                  ],
+                ),
+              ),
+            ),
+
+            SizedBox(height: 15),
+
+            SizedBox(
+              width: double.infinity,
+              height: 65,
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, '/ganjil-genap');
+                },
+                style: ElevatedButton.styleFrom(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
+                child: Row(
+                  children: [
+                    SizedBox(width: 15),
+                    Text('Ganjil / Genap', style: TextStyle(fontSize: 18)),
+                    Spacer(),
+                    Icon(Icons.arrow_forward_ios),
+                  ],
+                ),
+              ),
+            ),
+
+            SizedBox(height: 15),
+
+            SizedBox(
+              width: double.infinity,
+              height: 65,
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, '/anggota');
+                },
+                style: ElevatedButton.styleFrom(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
+                child: Row(
+                  children: [
+                    SizedBox(width: 15),
+                    Text('Anggota Kelompok', style: TextStyle(fontSize: 18)),
+                    Spacer(),
+                    Icon(Icons.arrow_forward_ios),
+                  ],
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );
