@@ -103,7 +103,7 @@ class AnggotaPage extends StatelessWidget {
                 children: [
                   ClipOval(
                     child: Image.asset(
-                      'gambar/anggota2.jpg',
+                      'gambar/abraham.jpeg',
                       width: 100,
                       height: 100,
                       fit: BoxFit.cover,
@@ -113,11 +113,11 @@ class AnggotaPage extends StatelessWidget {
                   SizedBox(height: 10),
 
                   Text(
-                    'Nama Anggota 2',
+                    'Abraham Valentino Tarigan',
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
 
-                  Text('NIM: 123456789'),
+                  Text('NIM: 124240099'),
                 ],
               ),
             ),
@@ -128,7 +128,7 @@ class AnggotaPage extends StatelessWidget {
                 children: [
                   ClipOval(
                     child: Image.asset(
-                      'gambar/anggota3.jpg',
+                      'gambar/jasson.jpeg',
                       width: 100,
                       height: 100,
                       fit: BoxFit.cover,
@@ -138,11 +138,11 @@ class AnggotaPage extends StatelessWidget {
                   SizedBox(height: 10),
 
                   Text(
-                    'Nama Anggota 3',
+                    'Jasson Edward Te Victoria',
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
 
-                  Text('NIM: 123456789'),
+                  Text('NIM: 124240116'),
                 ],
               ),
             ),
@@ -153,7 +153,7 @@ class AnggotaPage extends StatelessWidget {
                 children: [
                   ClipOval(
                     child: Image.asset(
-                      'gambar/anggota4.jpg',
+                      'gambar/yefaqih.jpeg',
                       width: 100,
                       height: 100,
                       fit: BoxFit.cover,
@@ -163,37 +163,11 @@ class AnggotaPage extends StatelessWidget {
                   SizedBox(height: 10),
 
                   Text(
-                    'Nama Anggota 4',
+                    'Yefa Faqihan Azfar',
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
 
-                  Text('NIM: 123456789'),
-                ],
-              ),
-            ),
-
-            Card(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  ClipOval(
-                    child: Image.asset(
-                      'gambar/anggota5.jpg',
-                      width: 100,
-                      height: 100,
-                      fit: BoxFit.cover,
-                      centerSlice: Rect.fromLTWH(0, 0, 100, 100),
-                    ),
-                  ),
-
-                  SizedBox(height: 10),
-
-                  Text(
-                    'Nama Anggota 5',
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                  ),
-
-                  Text('NIM: 123456789'),
+                  Text('NIM: 124240091'),
                 ],
               ),
             ),

@@ -64,7 +64,7 @@ class DashboardPage extends StatelessWidget {
 
       body: Center(
         child: Text(
-          'Selamat Datang Sayang',
+          'Selamat Datang di Dashboard',
           style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
         ),
       ),
