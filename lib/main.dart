@@ -4,6 +4,7 @@ import 'pages/dashboard_page.dart';
 import 'pages/aritmatika_page.dart';
 import 'pages/Ganjil_Genap_page.dart';
 import 'pages/anggota_page.dart';
+import 'pages/penjumlahan_total_angka.dart';
 
 void main() {
   runApp(const MyApp());
@@ -24,6 +25,7 @@ class MyApp extends StatelessWidget {
         '/dashboard': (context) => const DashboardPage(),
         '/anggota': (context) => const AnggotaPage(),
         '/Aritmatika': (context) => const ArithmeticPage(),
+        '/Penjumlahan Total Angka Satu Field': (context) => const HitungTotalPage(),
         '/ganjil-genap': (context) => const GanjilGenapPage(),
       },
     );

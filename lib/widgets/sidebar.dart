@@ -54,6 +54,18 @@ class Sidebar extends StatelessWidget {
             },
           ),
 
+
+          // Total Angka 
+          ListTile(
+            title: const Text(
+              'Penjumlahan Total Angka',
+              style: TextStyle(color: Colors.white),
+            ),
+            onTap: () {
+              Navigator.pushNamed(context, '/Penjumlahan Total Angka Satu Field'); // MENGHUBUNGKAN KE RUTE BARU
+            },
+          ),
+
           // Ganjil / Genap
           ListTile(
             title: const Text(
