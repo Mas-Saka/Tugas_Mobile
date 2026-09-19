@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "653568203298",
+    "project_id": "fir-tugas2kelmobile",
+    "storage_bucket": "fir-tugas2kelmobile.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:653568203298:android:bbdc711be3adb76d12087b",
+        "android_client_info": {
+          "package_name": "com.example.tugas2"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBbi6wNjHSQk9pejvv0suwRdonm-05B858"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:653568203298:android:f4fcbe190f45034512087b",
+        "android_client_info": {
+          "package_name": "com.example.tugas2kelmobile"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBbi6wNjHSQk9pejvv0suwRdonm-05B858"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
