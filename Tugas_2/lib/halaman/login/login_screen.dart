@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'daftar_screen.dart';
 import '../../layanan/layanan_auth.dart';
-import '../halaman_utama/navigasi_utama.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -67,7 +66,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const Text(
-                      'KALENDER PERTANIAN',
+                      'AGROTIME-KALENDER PERTANIAN',
                       style: TextStyle(
                         fontSize: 13,
                         fontWeight: FontWeight.bold,

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:intl/date_symbol_data_local.dart';
-import 'data/data_kalender_pertanian.dart';
+
 import 'firebase_options.dart';
 import 'halaman/login/login_screen.dart';
 import 'halaman/halaman_utama/navigasi_utama.dart';
@@ -11,7 +11,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  await DataKalenderPertanian.isiData();
+
   await initializeDateFormatting('id_ID', null);
 
   runApp(const MyApp());

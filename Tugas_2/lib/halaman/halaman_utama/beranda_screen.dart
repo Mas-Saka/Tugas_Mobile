@@ -33,7 +33,7 @@ class BerandaScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const Text(
-                      'Kalender & Pertanian',
+                      'AGROTIME - KALENDER PERTANIAN',
                       style: TextStyle(
                         fontSize: 27,
                         fontWeight: FontWeight.bold,
