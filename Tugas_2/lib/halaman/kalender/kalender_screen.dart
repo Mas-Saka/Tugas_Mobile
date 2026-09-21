@@ -1,21 +1,27 @@
 import 'package:flutter/material.dart';
 
 import '../../komponen/kartu_menu.dart';
+import 'halaman_kalender.dart';
 import 'pertanian_screen.dart';
 import 'saka_bali_screen.dart';
 import 'weton_screen.dart';
 
+/// Halaman Menu Utama Kalender yang menampilkan pilihan fitur kalender.
 class KalenderScreen extends StatelessWidget {
   const KalenderScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color(0xFFF1F4EC),
       appBar: AppBar(
         title: const Text(
           'Kalender',
-          style: TextStyle(fontWeight: FontWeight.bold),
+          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
         ),
+        backgroundColor: const Color(0xFF4F7D58),
+        elevation: 0,
+        iconTheme: const IconThemeData(color: Colors.white),
       ),
       body: ListView(
         padding: const EdgeInsets.all(20),
@@ -38,14 +44,21 @@ class KalenderScreen extends StatelessWidget {
 
           const SizedBox(height: 22),
 
+          // Menu 1: Ringkasan Kalender Umum
           KartuMenu(
             judul: 'Kalender',
-            deskripsi: 'Informasi kalender umum.',
-            ketikaDitekan: () {},
+            deskripsi: 'Informasi dan ringkasan kalender umum.',
+            ketikaDitekan: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (_) => const HalamanKalender()),
+              );
+            },
           ),
 
           const SizedBox(height: 12),
 
+          // Menu 2: Weton Jawa
           KartuMenu(
             judul: 'Weton Jawa',
             deskripsi: 'Perhitungan dan informasi Weton Jawa.',
@@ -59,6 +72,7 @@ class KalenderScreen extends StatelessWidget {
 
           const SizedBox(height: 12),
 
+          // Menu 3: Saka Bali
           KartuMenu(
             judul: 'Saka Bali',
             deskripsi: 'Informasi kalender Saka Bali.',
@@ -72,6 +86,7 @@ class KalenderScreen extends StatelessWidget {
 
           const SizedBox(height: 12),
 
+          // Menu 4: Kalender Pertanian
           KartuMenu(
             judul: 'Kalender Pertanian',
             deskripsi: 'Informasi kalender yang berkaitan dengan pertanian.',
