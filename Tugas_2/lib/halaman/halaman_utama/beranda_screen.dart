@@ -202,7 +202,7 @@ class BerandaScreen extends StatelessWidget {
                               ),
                               SizedBox(height: 3),
                               Text(
-                                'Lihat anggota dan pembagian tugas.',
+                                'Lihat anggota.',
                                 style: TextStyle(
                                   fontSize: 12,
                                   color: Color(0xFF718078),
