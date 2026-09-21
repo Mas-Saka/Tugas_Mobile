@@ -25,11 +25,7 @@ class HasilSaka {
   final String sasih;
   final String wuku;
 
-  HasilSaka({
-    required this.tahunSaka,
-    required this.sasih,
-    required this.wuku,
-  });
+  HasilSaka({required this.tahunSaka, required this.sasih, required this.wuku});
 }
 
 /// Class [LogikaKalender] berisi algoritma dan perhitungan sistem penanggalan
@@ -100,7 +96,8 @@ class LogikaKalender {
     // Hitung index pasaran menggunakan fungsi modulo 5
     int pasaranIndex = selisihHari % 5;
     if (pasaranIndex < 0) {
-      pasaranIndex += 5; // Penyesuaian jika selisih bernilai negatif (tanggal sebelum tahun 2000)
+      pasaranIndex +=
+          5; // Penyesuaian jika selisih bernilai negatif (tanggal sebelum tahun 2000)
     }
 
     final String namaPasaran = _daftarPasaran[pasaranIndex];
@@ -119,17 +116,52 @@ class LogikaKalender {
 
   // 3. DAFTAR WUKU BALI (30 Wuku dalam siklus Pawukon 210 Hari)
   static const List<String> _daftarWuku = [
-    'Sinta', 'Landep', 'Ukir', 'Kulantir', 'Tolu', 'Gumbreg',
-    'Wariga', 'Warigadean', 'Julungwangi', 'Sungsang', 'Dungulan', 'Kuningan',
-    'Langkir', 'Medangsia', 'Pujut', 'Pahang', 'Krulut', 'Merakih',
-    'Tambir', 'Medangkungan', 'Matal', 'Uye', 'Menail', 'Prangbakat',
-    'Bala', 'Ugu', 'Wayang', 'Kulawu', 'Dukut', 'Watugunung',
+    'Sinta',
+    'Landep',
+    'Ukir',
+    'Kulantir',
+    'Tolu',
+    'Gumbreg',
+    'Wariga',
+    'Warigadean',
+    'Julungwangi',
+    'Sungsang',
+    'Dungulan',
+    'Kuningan',
+    'Langkir',
+    'Medangsia',
+    'Pujut',
+    'Pahang',
+    'Krulut',
+    'Merakih',
+    'Tambir',
+    'Medangkungan',
+    'Matal',
+    'Uye',
+    'Menail',
+    'Prangbakat',
+    'Bala',
+    'Ugu',
+    'Wayang',
+    'Kulawu',
+    'Dukut',
+    'Watugunung',
   ];
 
   // 4. DAFTAR SASIH BALI (12 Sasih)
   static const List<String> _daftarSasih = [
-    'Kapitu', 'Kawulu', 'Kasanga', 'Kadasa', 'Jyestha', 'Sadha',
-    'Kasa', 'Karo', 'Katiga', 'Kapat', 'Kalima', 'Kanem',
+    'Kapitu',
+    'Kawulu',
+    'Kasanga',
+    'Kadasa',
+    'Jyestha',
+    'Sadha',
+    'Kasa',
+    'Karo',
+    'Katiga',
+    'Kapat',
+    'Kalima',
+    'Kanem',
   ];
 
   /// ALGORITMA KALENDER SAKA BALI (Hitungan Sederhana)
@@ -158,18 +190,24 @@ class LogikaKalender {
     final int indexWuku = (hariDalamSiklus / 7).floor() % 30;
     final String wuku = _daftarWuku[indexWuku];
 
-    return HasilSaka(
-      tahunSaka: tahunSaka,
-      sasih: sasih,
-      wuku: wuku,
-    );
+    return HasilSaka(tahunSaka: tahunSaka, sasih: sasih, wuku: wuku);
   }
 
   /// Helper untuk memformat tanggal Masehi ke Bahasa Indonesia
   static String formatTanggalIndonesia(DateTime date) {
     const listBulan = [
-      'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni',
-      'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'
+      'Januari',
+      'Februari',
+      'Maret',
+      'April',
+      'Mei',
+      'Juni',
+      'Juli',
+      'Agustus',
+      'September',
+      'Oktober',
+      'November',
+      'Desember',
     ];
     return "${date.day} ${listBulan[date.month - 1]} ${date.year}";
   }

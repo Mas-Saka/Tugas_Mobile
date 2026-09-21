@@ -1,45 +1,73 @@
 import 'package:flutter/material.dart';
-// Import halaman-halaman utama Anda di sini
-// import 'pages/home_page.dart';
-// import 'pages/profile_page.dart';
 
-class MainNavigation extends StatefulWidget {
-  const MainNavigation({super.key});
+import 'beranda_screen.dart';
+import '../stopwatch/stopwatch_screen.dart';
+import '../bantuan/bantuan_screen.dart';
+
+class NavigasiUtama extends StatefulWidget {
+  const NavigasiUtama({super.key});
 
   @override
-  State<MainNavigation> createState() => _MainNavigationState();
+  State<NavigasiUtama> createState() => _NavigasiUtamaState();
 }
 
-class _MainNavigationState extends State<MainNavigation> {
-  int _currentIndex = 0;
+class _NavigasiUtamaState extends State<NavigasiUtama> {
+  int halamanAktif = 0;
 
-  // Daftar halaman yang diakses melalui BottomNavigationBar
-  final List<Widget> _pages = const [
-    Center(child: Text('Halaman Utama / Home')),
-    Center(child: Text('Halaman Profil')),
+  final List<Widget> halaman = const [
+    BerandaScreen(),
+    StopwatchScreen(),
+    BantuanScreen(),
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _pages[_currentIndex],
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _currentIndex,
-        onTap: (index) {
+      body: IndexedStack(index: halamanAktif, children: halaman),
+
+      bottomNavigationBar: Container(
+        decoration: const BoxDecoration(color: Colors.white),
+        child: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(12, 8, 12, 8),
+            child: Row(
+              children: [
+                tombolNavigasi('Home', 0),
+                tombolNavigasi('Stopwatch', 1),
+                tombolNavigasi('Bantuan', 2),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget tombolNavigasi(String teks, int index) {
+    final bool aktif = halamanAktif == index;
+
+    return Expanded(
+      child: GestureDetector(
+        onTap: () {
           setState(() {
-            _currentIndex = index;
+            halamanAktif = index;
           });
         },
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
+        child: Container(
+          padding: const EdgeInsets.symmetric(vertical: 12),
+          decoration: BoxDecoration(
+            color: aktif ? const Color(0xFFE7EFE8) : Colors.transparent,
+            borderRadius: BorderRadius.circular(12),
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Profil',
+          child: Text(
+            teks,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              color: aktif ? const Color(0xFF4F7D58) : const Color(0xFF66736A),
+              fontWeight: aktif ? FontWeight.bold : FontWeight.w500,
+            ),
           ),
-        ],
+        ),
       ),
     );
   }
