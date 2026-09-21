@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'firebase_options.dart'; // File yang baru saja dibuat otomatis
-import 'agenda_screen.dart';   // File halaman agenda kamu
+import 'package:intl/date_symbol_data_local.dart';
+
+import 'firebase_options.dart';
+import 'agenda_screen.dart';
 
 void main() async {
-  // Wajib dipanggil sebelum mengoperasikan Firebase
-  WidgetsFlutterBinding.ensureInitialized(); 
-  
-  // Inisialisasi Firebase
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
+  // Inisialisasi format tanggal Indonesia
+  await initializeDateFormatting('id_ID', null);
 
   runApp(const MyApp());
 }
@@ -21,10 +21,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Aplikasi Agenda',
+      title: 'Aplikasi Tani & Agenda',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(primarySwatch: Colors.green),
-      home: const AgendaScreen(), // Menampilkan halaman agenda_screen.dart
+      home: const MainNavigationScreen(),
     );
   }
 }
