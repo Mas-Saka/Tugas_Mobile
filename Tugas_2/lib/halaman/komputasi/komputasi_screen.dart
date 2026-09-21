@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../../komponen/kartu_menu.dart';
-import 'selisih_tanggal_screen.dart';
 import 'tambah_tanggal_screen.dart';
 import 'kurang_tanggal_screen.dart';
+import 'selisih_tanggal_screen.dart';
 import 'menentukan_hari_screen.dart';
 
 class KomputasiScreen extends StatelessWidget {
@@ -12,83 +11,52 @@ class KomputasiScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          'Komputasi',
-          style: TextStyle(fontWeight: FontWeight.bold),
-        ),
-      ),
+      appBar: AppBar(title: const Text('Menu Komputasi Tani')),
       body: ListView(
-        padding: const EdgeInsets.all(20),
+        padding: const EdgeInsets.all(16),
         children: [
-          const Text(
-            'Komputasi Tanggal',
-            style: TextStyle(
-              fontSize: 24,
-              fontWeight: FontWeight.bold,
-              color: Color(0xFF26382B),
-            ),
+          _buildMenuItem(
+            context,
+            'Tambah Tanggal (Estimasi Panen)',
+            Icons.add_circle_outline,
+            const TambahTanggalScreen(),
           ),
-
-          const SizedBox(height: 8),
-
-          const Text(
-            'Pilih perhitungan yang ingin dilakukan.',
-            style: TextStyle(color: Color(0xFF66736A)),
+          _buildMenuItem(
+            context,
+            'Kurang Tanggal (Hitung Mundur Semai)',
+            Icons.remove_circle_outline,
+            const KurangTanggalScreen(),
           ),
-
-          const SizedBox(height: 22),
-
-          KartuMenu(
-            judul: 'Selisih Tanggal',
-            deskripsi: 'Menghitung jarak antara dua tanggal.',
-            ketikaDitekan: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (_) => const SelisihTanggalScreen()),
-              );
-            },
+          _buildMenuItem(
+            context,
+            'Selisih Tanggal Tanam & Panen',
+            Icons.date_range,
+            const SelisihTanggalScreen(),
           ),
-
-          const SizedBox(height: 12),
-
-          KartuMenu(
-            judul: 'Tambah Tanggal',
-            deskripsi: 'Menambahkan sejumlah hari ke tanggal tertentu.',
-            ketikaDitekan: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (_) => const TambahTanggalScreen()),
-              );
-            },
-          ),
-
-          const SizedBox(height: 12),
-
-          KartuMenu(
-            judul: 'Kurang Tanggal',
-            deskripsi: 'Mengurangi sejumlah hari dari tanggal tertentu.',
-            ketikaDitekan: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (_) => const KurangTanggalScreen()),
-              );
-            },
-          ),
-
-          const SizedBox(height: 12),
-
-          KartuMenu(
-            judul: 'Menentukan Hari',
-            deskripsi: 'Menentukan nama hari berdasarkan tanggal.',
-            ketikaDitekan: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (_) => const MenentukanHariScreen()),
-              );
-            },
+          _buildMenuItem(
+            context,
+            'Menentukan Hari Tanam',
+            Icons.today,
+            const MenentukanHariScreen(),
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _buildMenuItem(
+    BuildContext context,
+    String title,
+    IconData icon,
+    Widget page,
+  ) {
+    return Card(
+      child: ListTile(
+        leading: Icon(icon, color: Colors.green),
+        title: Text(title),
+        trailing: const Icon(Icons.arrow_forward_ios),
+        onTap: () =>
+            Navigator.push(context, MaterialPageRoute(builder: (_) => page)),
       ),
     );
   }
