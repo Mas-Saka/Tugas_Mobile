@@ -23,17 +23,14 @@ class _LoginScreenState extends State<LoginScreen> {
       pesanError = '';
     });
 
-    String? hasil = await LayananAuth().login(
+    final hasil = await LayananAuth().login(
       emailController.text.trim(),
       passwordController.text.trim(),
     );
 
-    if (hasil == null) {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (_) => const NavigasiUtama()),
-      );
-    } else {
+    if (!mounted) return;
+
+    if (hasil != null) {
       setState(() {
         sedangLogin = false;
         pesanError = hasil;

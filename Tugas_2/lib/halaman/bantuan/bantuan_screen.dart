@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../layanan/layanan_auth.dart';
 
 class BantuanScreen extends StatelessWidget {
   const BantuanScreen({super.key});
@@ -6,11 +7,14 @@ class BantuanScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color(0xFFF1F4EC),
       appBar: AppBar(
         title: const Text(
           'Bantuan',
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
+        backgroundColor: const Color(0xFF4F7D58),
+        foregroundColor: Colors.white,
       ),
       body: ListView(
         padding: const EdgeInsets.all(20),
@@ -19,7 +23,7 @@ class BantuanScreen extends StatelessWidget {
             judul: 'Menu Home',
             isi:
                 'Home digunakan sebagai halaman utama untuk '
-                'mengakses Kalender, Konversi, '
+                'mengakses Kalender, Konversi, Komputasi, '
                 'Agenda, dan Anggota.',
           ),
 
@@ -27,33 +31,36 @@ class BantuanScreen extends StatelessWidget {
             judul: 'Menu Agenda',
             isi:
                 'Digunakan untuk menambahkan dan mengelola '
-                'kegiatan.',
+                'kegiatan, mengatur waktu, status, dan melihat '
+                'riwayat agenda.',
           ),
+
+          BantuanItem(
+            judul: 'Menu Komputasi',
+            isi:
+                'Digunakan untuk menghitung umur tanaman, '
+                'prediksi panen, kebutuhan pupuk, dan jumlah tanaman.',
+          ),
+
           BantuanItem(
             judul: 'Menu Konversi',
             isi:
-                'Digunakan untuk melakukan konversi tanggal '
-                'lahir dan waktu.',
+                'Digunakan untuk menghitung umur berdasarkan '
+                'tanggal lahir serta melakukan konversi waktu.',
           ),
+
           BantuanItem(
             judul: 'Menu Kalender',
             isi:
-                'Digunakan untuk melihat kalender, Weton Jawa, '
-                'Saka Bali, dan kalender pertanian.',
+                'Digunakan untuk melihat kalender Masehi, '
+                'Weton Jawa, Jogja, Bali, Hijriah, dan Saka.',
           ),
-          BantuanItem(
-            judul: 'Stopwatch',
-            isi:
-                'Gunakan tombol Mulai untuk menjalankan waktu, '
-                'Berhenti untuk menghentikan sementara, '
-                'Lanjutkan untuk meneruskan, dan Reset untuk '
-                'mengulang dari awal.',
-          ),
+
           BantuanItem(
             judul: 'Logout',
             isi:
-                'Gunakan tombol Logout pada halaman Home untuk '
-                'keluar dari akun.',
+                'Gunakan tombol KELUAR di pojok kanan atas '
+                'untuk keluar dari akun.',
           ),
         ],
       ),
@@ -75,6 +82,7 @@ class BantuanItem extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: const Color(0xFFD9E2D5)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

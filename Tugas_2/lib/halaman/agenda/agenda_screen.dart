@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:intl/intl.dart';
-
-// ==========================================
-// 1. BAGIAN AGENDA / KEGIATAN
-// ==========================================
 
 class AgendaMainTab extends StatelessWidget {
   const AgendaMainTab({super.key});
@@ -187,7 +184,6 @@ class AgendaMainTab extends StatelessWidget {
                   ],
                 ),
               ),
-
               actions: [
                 TextButton(
                   onPressed: () {
@@ -205,7 +201,14 @@ class AgendaMainTab extends StatelessWidget {
                       return;
                     }
 
+                    final user = FirebaseAuth.instance.currentUser;
+
+                    if (user == null) {
+                      return;
+                    }
+
                     final data = {
+                      'userId': user.uid,
                       'kegiatan': kegiatanController.text.trim(),
                       'kategori': selectedKategori,
                       'tanggal': Timestamp.fromDate(selectedTanggal),
@@ -280,6 +283,51 @@ class AgendaMainTab extends StatelessWidget {
     );
   }
 
+  bool _sudahLewat(Map<String, dynamic> data) {
+    final tanggal = (data['tanggal'] as Timestamp).toDate();
+
+    final waktuSelesai = data['waktuSelesai']?.toString() ?? '00.00';
+
+    final bagianWaktu = waktuSelesai.split('.');
+
+    final jam = int.tryParse(bagianWaktu[0]) ?? 0;
+
+    final menit =
+        int.tryParse(bagianWaktu.length > 1 ? bagianWaktu[1] : '0') ?? 0;
+
+    final batasWaktu = DateTime(
+      tanggal.year,
+      tanggal.month,
+      tanggal.day,
+      jam,
+      menit,
+    );
+
+    return DateTime.now().isAfter(batasWaktu);
+  }
+
+  Future<void> _perbaruiStatusTerlewat(List<QueryDocumentSnapshot> docs) async {
+    final batch = FirebaseFirestore.instance.batch();
+
+    bool adaPerubahan = false;
+
+    for (final doc in docs) {
+      final data = doc.data() as Map<String, dynamic>;
+
+      final status = data['status'] ?? 'Belum selesai';
+
+      if (status == 'Belum selesai' && _sudahLewat(data)) {
+        batch.update(doc.reference, {'status': 'Terlewat'});
+
+        adaPerubahan = true;
+      }
+    }
+
+    if (adaPerubahan) {
+      await batch.commit();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -287,7 +335,7 @@ class AgendaMainTab extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           title: const Text('Agenda / Kegiatan'),
-          backgroundColor: Colors.green,
+          backgroundColor: const Color(0xFF4F7D58),
           foregroundColor: Colors.white,
           bottom: const TabBar(
             labelColor: Colors.white,
@@ -322,9 +370,16 @@ class AgendaMainTab extends StatelessWidget {
   }
 
   Widget _buildAgendaList(BuildContext context, {required bool isRiwayat}) {
+    final user = FirebaseAuth.instance.currentUser;
+
+    if (user == null) {
+      return const Center(child: Text('Silakan login terlebih dahulu.'));
+    }
+
     return StreamBuilder<QuerySnapshot>(
       stream: FirebaseFirestore.instance
           .collection('agenda')
+          .where('userId', isEqualTo: user.uid)
           .orderBy('tanggal', descending: false)
           .snapshots(),
 
@@ -333,11 +388,28 @@ class AgendaMainTab extends StatelessWidget {
           return const Center(child: CircularProgressIndicator());
         }
 
+        if (snapshot.hasError) {
+          return Center(
+            child: Padding(
+              padding: const EdgeInsets.all(20),
+              child: Text(
+                'Gagal mengambil agenda.\n\n${snapshot.error}',
+                textAlign: TextAlign.center,
+              ),
+            ),
+          );
+        }
+
         if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
           return const Center(child: Text('Belum ada agenda.'));
         }
 
-        final docs = snapshot.data!.docs.where((doc) {
+        final semuaDocs = snapshot.data!.docs;
+
+        // Memperbarui agenda yang sudah melewati waktu selesai.
+        _perbaruiStatusTerlewat(semuaDocs);
+
+        final docs = semuaDocs.where((doc) {
           final data = doc.data() as Map<String, dynamic>;
 
           final status = data['status'] ?? 'Belum selesai';

@@ -116,7 +116,7 @@ class BerandaScreen extends StatelessWidget {
                 icon: Icons.calculate,
                 judul: 'Komputasi',
                 deskripsi:
-                    'Hitung selisih, penambahan, pengurangan tanggal, dan menentukan hari.',
+                    'Hitung umur tanaman, prediksi panen, kebutuhan pupuk, dan jumlah tanaman.',
                 warna: const Color(0xFFE9E4C9),
                 ketikaDitekan: () {
                   Navigator.push(
