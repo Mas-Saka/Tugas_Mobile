@@ -16,8 +16,7 @@ class DefaultFirebaseOptions {
         return macos;
       case TargetPlatform.windows:
         return windows;
-      case TargetPlatform.linux:
-        return linux;
+
       default:
         throw UnsupportedError('Platform Firebase belum dikonfigurasi.');
     }
@@ -65,11 +64,5 @@ class DefaultFirebaseOptions {
     authDomain: 'fir-tugas2kelmobile.firebaseapp.com',
     storageBucket: 'fir-tugas2kelmobile.firebasestorage.app',
     measurementId: 'G-Q0DVCBN5FM',
-  );
-  static const FirebaseOptions linux = FirebaseOptions(
-    apiKey: 'ISI_DARI_FIREBASE',
-    appId: 'ISI_DARI_FIREBASE',
-    messagingSenderId: 'ISI_DARI_FIREBASE',
-    projectId: 'ISI_DARI_FIREBASE',
   );
 }

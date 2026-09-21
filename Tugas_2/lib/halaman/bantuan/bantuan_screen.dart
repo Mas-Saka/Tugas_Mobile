@@ -16,24 +16,13 @@ class BantuanScreen extends StatelessWidget {
         padding: const EdgeInsets.all(20),
         children: const [
           BantuanItem(
-            judul: 'Cara Login',
-            isi:
-                'Masukkan email dan password yang sudah '
-                'terdaftar pada Firebase Authentication.',
-          ),
-          BantuanItem(
             judul: 'Menu Home',
             isi:
                 'Home digunakan sebagai halaman utama untuk '
-                'mengakses Kalender, Komputasi, Konversi, '
+                'mengakses Kalender, Konversi, '
                 'Agenda, dan Anggota.',
           ),
-          BantuanItem(
-            judul: 'Menu Komputasi',
-            isi:
-                'Digunakan untuk melakukan perhitungan '
-                'tanggal sesuai fitur yang tersedia.',
-          ),
+
           BantuanItem(
             judul: 'Menu Agenda',
             isi:

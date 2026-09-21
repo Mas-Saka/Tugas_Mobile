@@ -50,7 +50,6 @@ class _LoginScreenState extends State<LoginScreen> {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              // BAGIAN ATAS
               Container(
                 width: double.infinity,
                 padding: const EdgeInsets.fromLTRB(28, 42, 28, 36),
@@ -100,7 +99,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
                     const SizedBox(height: 28),
 
-                    // DEKORASI PETAK SAWAH
                     Row(
                       children: [
                         Expanded(
@@ -140,7 +138,6 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
 
-              // FORM LOGIN
               Transform.translate(
                 offset: const Offset(0, -8),
                 child: Padding(
@@ -351,7 +348,6 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
 
-              // BAGIAN BAWAH
               const Padding(
                 padding: EdgeInsets.fromLTRB(28, 8, 28, 28),
                 child: Column(
