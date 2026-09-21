@@ -16,7 +16,7 @@ class AgendaScreen extends StatelessWidget {
         stream: agendaRef.orderBy('tanggal', descending: false).snapshots(),
         builder: (context, snapshot) {
           if (snapshot.hasError) {
-            return const Center(child: Text('Terjadi kesalahan data.'));
+            return Center(child: Text('Error: ${snapshot.error}'));
           }
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
@@ -31,15 +31,21 @@ class AgendaScreen extends StatelessWidget {
           return ListView.builder(
             itemCount: docs.length,
             itemBuilder: (context, index) {
-              var data = docs[index].data() as Map<String, dynamic>;
+              final rawData = docs[index].data();
+              final data = rawData != null
+                  ? rawData as Map<String, dynamic>
+                  : {};
+
               String docId = docs[index].id;
+              String judul = data['judul'] ?? 'Tanpa Judul';
+              String jenisTanaman = data['jenis_tanaman'] ?? '-';
               String status = data['status'] ?? 'belum selesai';
 
               return Card(
                 margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
                 child: ListTile(
                   title: Text(
-                    data['judul'] ?? '',
+                    judul,
                     style: TextStyle(
                       decoration: status == 'selesai'
                           ? TextDecoration.lineThrough
@@ -47,7 +53,7 @@ class AgendaScreen extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  subtitle: Text('${data['jenis_tanaman']} - Status: $status'),
+                  subtitle: Text('$jenisTanaman - Status: $status'),
                   trailing: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
