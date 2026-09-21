@@ -3,13 +3,13 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
 import 'firebase_options.dart';
-import 'agenda_screen.dart';
+import 'halaman/login/login_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
-  // Inisialisasi format tanggal Indonesia
   await initializeDateFormatting('id_ID', null);
 
   runApp(const MyApp());
@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
       title: 'Aplikasi Tani & Agenda',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(primarySwatch: Colors.green),
-      home: const MainNavigationScreen(),
+      home: const LoginScreen(),
     );
   }
 }

@@ -157,7 +157,7 @@ class BerandaScreen extends StatelessWidget {
                 ketikaDitekan: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (_) => const AgendaScreen()),
+                    MaterialPageRoute(builder: (_) => const AgendaMainTab()),
                   );
                 },
               ),

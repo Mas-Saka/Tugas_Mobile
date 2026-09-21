@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'daftar_screen.dart';
 import '../../layanan/layanan_auth.dart';
+import '../halaman_utama/navigasi_utama.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -27,12 +28,17 @@ class _LoginScreenState extends State<LoginScreen> {
       passwordController.text.trim(),
     );
 
-    if (!mounted) return;
-
-    setState(() {
-      sedangLogin = false;
-      pesanError = hasil ?? '';
-    });
+    if (hasil == null) {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (_) => const NavigasiUtama()),
+      );
+    } else {
+      setState(() {
+        sedangLogin = false;
+        pesanError = hasil;
+      });
+    }
   }
 
   @override
