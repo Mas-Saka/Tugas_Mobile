@@ -51,7 +51,10 @@ class _HalamanKalenderState extends State<HalamanKalender> {
               ),
               color: Colors.white,
               child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
+                padding: const EdgeInsets.symmetric(
+                  vertical: 8.0,
+                  horizontal: 4.0,
+                ),
                 child: TableCalendar(
                   firstDay: DateTime(1990, 1, 1),
                   lastDay: DateTime(2050, 12, 31),
@@ -130,9 +133,16 @@ class _HalamanKalenderState extends State<HalamanKalender> {
                 children: [
                   _buildInfoRow('Weton', wetonInfo.weton, isBold: true),
                   const SizedBox(height: 6),
-                  _buildInfoRow('Hari & Pasaran', '${wetonInfo.hari} (${wetonInfo.neptuHari}) + ${wetonInfo.pasaran} (${wetonInfo.neptuPasaran})'),
+                  _buildInfoRow(
+                    'Hari & Pasaran',
+                    '${wetonInfo.hari} (${wetonInfo.neptuHari}) + ${wetonInfo.pasaran} (${wetonInfo.neptuPasaran})',
+                  ),
                   const SizedBox(height: 6),
-                  _buildInfoRow('Total Neptu', '${wetonInfo.totalNeptu}', isHighlight: true),
+                  _buildInfoRow(
+                    'Total Neptu',
+                    '${wetonInfo.totalNeptu}',
+                    isHighlight: true,
+                  ),
                 ],
               ),
             ),
@@ -147,7 +157,11 @@ class _HalamanKalenderState extends State<HalamanKalender> {
               content: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  _buildInfoRow('Tahun Saka', '${sakaInfo.tahunSaka} Saka', isBold: true),
+                  _buildInfoRow(
+                    'Tahun Saka',
+                    '${sakaInfo.tahunSaka} Saka',
+                    isBold: true,
+                  ),
                   const SizedBox(height: 6),
                   _buildInfoRow('Sasih', sakaInfo.sasih),
                   const SizedBox(height: 6),
@@ -173,13 +187,19 @@ class _HalamanKalenderState extends State<HalamanKalender> {
                     return const Padding(
                       padding: EdgeInsets.all(16.0),
                       child: Center(
-                        child: CircularProgressIndicator(color: Color(0xFF4F7D58)),
+                        child: CircularProgressIndicator(
+                          color: Color(0xFF4F7D58),
+                        ),
                       ),
                     );
                   }
 
-                  if (snapshot.hasError || !snapshot.hasData || snapshot.data!.docs.isEmpty) {
-                    return _buildWarningWidget('Belum ada data pertanian untuk tanggal ini.');
+                  if (snapshot.hasError ||
+                      !snapshot.hasData ||
+                      snapshot.data!.docs.isEmpty) {
+                    return _buildWarningWidget(
+                      'Belum ada data pertanian untuk tanggal ini.',
+                    );
                   }
 
                   final docs = snapshot.data!.docs;
@@ -210,7 +230,10 @@ class _HalamanKalenderState extends State<HalamanKalender> {
                                   ),
                                 ),
                                 Container(
-                                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 8,
+                                    vertical: 3,
+                                  ),
                                   decoration: BoxDecoration(
                                     color: const Color(0xFF4F7D58),
                                     borderRadius: BorderRadius.circular(8),
@@ -258,9 +281,7 @@ class _HalamanKalenderState extends State<HalamanKalender> {
   }) {
     return Card(
       elevation: 2,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(16),
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       color: Colors.white,
       child: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -290,7 +311,12 @@ class _HalamanKalenderState extends State<HalamanKalender> {
   }
 
   /// Helper Widget untuk baris informasi kunci-nilai
-  Widget _buildInfoRow(String label, String value, {bool isBold = false, bool isHighlight = false}) {
+  Widget _buildInfoRow(
+    String label,
+    String value, {
+    bool isBold = false,
+    bool isHighlight = false,
+  }) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -302,8 +328,12 @@ class _HalamanKalenderState extends State<HalamanKalender> {
           value,
           style: TextStyle(
             fontSize: 14,
-            fontWeight: (isBold || isHighlight) ? FontWeight.bold : FontWeight.normal,
-            color: isHighlight ? const Color(0xFF4F7D58) : const Color(0xFF26382B),
+            fontWeight: (isBold || isHighlight)
+                ? FontWeight.bold
+                : FontWeight.normal,
+            color: isHighlight
+                ? const Color(0xFF4F7D58)
+                : const Color(0xFF26382B),
           ),
         ),
       ],

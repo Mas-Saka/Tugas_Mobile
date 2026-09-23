@@ -5,6 +5,7 @@ import 'halaman_kalender.dart';
 import 'pertanian_screen.dart';
 import 'saka_bali_screen.dart';
 import 'weton_screen.dart';
+import 'hijri_screen.dart';
 
 /// Halaman Menu Utama Kalender yang menampilkan pilihan fitur kalender.
 class KalenderScreen extends StatelessWidget {
@@ -52,6 +53,19 @@ class KalenderScreen extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (_) => const HalamanKalender()),
+              );
+            },
+          ),
+
+          const SizedBox(height: 12),
+
+          KartuMenu(
+            judul: 'Konversi Tanggal Hijriah',
+            deskripsi: 'Mengubah tanggal Masehi menjadi tanggal Hijriah.',
+            ketikaDitekan: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (_) => const HijriScreen()),
               );
             },
           ),

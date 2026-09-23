@@ -24,6 +24,13 @@ class _WaktuScreenState extends State<WaktuScreen> {
       return;
     }
 
+    if (nilai < 0) {
+      setState(() {
+        hasil = 'Nilai tidak boleh negatif';
+      });
+      return;
+    }
+
     double hasilKonversi = nilai;
 
     if (dari == 'Jam' && ke == 'Menit') {
@@ -64,9 +71,7 @@ class _WaktuScreenState extends State<WaktuScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFFF1F4EC),
-      appBar: AppBar(
-        title: const Text('Konversi Waktu'),
-      ),
+      appBar: AppBar(title: const Text('Konversi Waktu')),
       body: Padding(
         padding: const EdgeInsets.all(20),
         child: Column(

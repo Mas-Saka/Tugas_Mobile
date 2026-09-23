@@ -39,6 +39,7 @@ dependencies:
   cloud_firestore: ^6.10.0
   intl: ^0.20.3
   table_calendar: ^3.2.1
+  hijri_core: ^1.1.0
 
 dev_dependencies:
   flutter_test:

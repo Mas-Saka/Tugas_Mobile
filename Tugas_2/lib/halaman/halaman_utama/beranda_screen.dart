@@ -238,8 +238,10 @@ class BerandaScreen extends StatelessWidget {
                       await LayananAuth().logout();
                     },
                     style: OutlinedButton.styleFrom(
-                      foregroundColor: const Color(0xFF9E4D4D),
-                      side: const BorderSide(color: Color(0xFFDDBABA)),
+                      foregroundColor: const Color.fromARGB(255, 229, 8, 8),
+                      side: const BorderSide(
+                        color: Color.fromARGB(255, 219, 99, 99),
+                      ),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(14),
                       ),

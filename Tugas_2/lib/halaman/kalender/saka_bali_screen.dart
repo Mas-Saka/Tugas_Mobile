@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
+
 import 'logika_kalender.dart';
 
-/// Halaman khusus untuk Informasi dan Perhitungan Kalender Saka Bali
+/// Halaman Kalender Saka Bali.
 class SakaBaliScreen extends StatefulWidget {
   const SakaBaliScreen({super.key});
 
@@ -16,11 +17,14 @@ class _SakaBaliScreenState extends State<SakaBaliScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // Memanggil algoritma Saka Bali dari logika_kalender.dart
     final HasilSaka sakaInfo = LogikaKalender.hitungSakaBali(_selectedDay);
 
     return Scaffold(
       backgroundColor: const Color(0xFFF1F4EC),
+
+      // ========================================================
+      // APP BAR
+      // ========================================================
       appBar: AppBar(
         title: const Text(
           'Kalender Saka Bali',
@@ -30,29 +34,40 @@ class _SakaBaliScreenState extends State<SakaBaliScreen> {
         elevation: 0,
         iconTheme: const IconThemeData(color: Colors.white),
       ),
+
+      // ========================================================
+      // BODY
+      // ========================================================
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Header Penjelasan
+            // ==================================================
+            // JUDUL
+            // ==================================================
             const Text(
-              'Penanggalan Saka Bali',
+              'Penanggalan Saka',
               style: TextStyle(
                 fontSize: 22,
                 fontWeight: FontWeight.bold,
                 color: Color(0xFF26382B),
               ),
             ),
+
             const SizedBox(height: 6),
+
             const Text(
-              'Pilih tanggal untuk melihat Tahun Saka, Sasih, dan Wuku berdasarkan algoritma Pawukon.',
+              'Pilih tanggal untuk melihat informasi '
+              'Tahun Saka, Sasih, Wuku, Pancawara, dan Saptawara.',
               style: TextStyle(color: Color(0xFF66736A), fontSize: 13),
             ),
 
             const SizedBox(height: 16),
 
-            // Kalender Interaktif
+            // ==================================================
+            // KALENDER
+            // ==================================================
             Card(
               elevation: 2,
               shape: RoundedRectangleBorder(
@@ -60,37 +75,47 @@ class _SakaBaliScreenState extends State<SakaBaliScreen> {
               ),
               color: Colors.white,
               child: Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(8),
                 child: TableCalendar(
                   firstDay: DateTime(1990, 1, 1),
                   lastDay: DateTime(2050, 12, 31),
                   focusedDay: _focusedDay,
-                  selectedDayPredicate: (day) => isSameDay(_selectedDay, day),
+
+                  selectedDayPredicate: (day) {
+                    return isSameDay(_selectedDay, day);
+                  },
+
                   onDaySelected: (selectedDay, focusedDay) {
                     setState(() {
                       _selectedDay = selectedDay;
                       _focusedDay = focusedDay;
                     });
                   },
-                  headerStyle: HeaderStyle(
+
+                  calendarFormat: CalendarFormat.month,
+
+                  headerStyle: const HeaderStyle(
                     formatButtonVisible: false,
                     titleCentered: true,
-                    titleTextStyle: const TextStyle(
+                    titleTextStyle: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
                       color: Color(0xFF26382B),
                     ),
                   ),
-                  calendarStyle: CalendarStyle(
-                    todayDecoration: const BoxDecoration(
+
+                  calendarStyle: const CalendarStyle(
+                    todayDecoration: BoxDecoration(
                       color: Color(0xFFA9C38F),
                       shape: BoxShape.circle,
                     ),
-                    selectedDecoration: const BoxDecoration(
+
+                    selectedDecoration: BoxDecoration(
                       color: Color(0xFF4F7D58),
                       shape: BoxShape.circle,
                     ),
-                    selectedTextStyle: const TextStyle(
+
+                    selectedTextStyle: TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.bold,
                     ),
@@ -101,7 +126,9 @@ class _SakaBaliScreenState extends State<SakaBaliScreen> {
 
             const SizedBox(height: 16),
 
-            // Ringkasan Tanggal Masehi
+            // ==================================================
+            // TANGGAL MASEHI
+            // ==================================================
             Container(
               width: double.infinity,
               padding: const EdgeInsets.all(14),
@@ -112,14 +139,19 @@ class _SakaBaliScreenState extends State<SakaBaliScreen> {
               ),
               child: Row(
                 children: [
-                  const Icon(Icons.temple_hindu, color: Color(0xFF4F7D58)),
+                  const Icon(Icons.calendar_month, color: Color(0xFF4F7D58)),
+
                   const SizedBox(width: 10),
-                  Text(
-                    'Tanggal: ${LogikaKalender.formatTanggalIndonesia(_selectedDay)}',
-                    style: const TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold,
-                      color: Color(0xFF26382B),
+
+                  Expanded(
+                    child: Text(
+                      'Tanggal Masehi: '
+                      '${LogikaKalender.formatTanggalIndonesia(_selectedDay)}',
+                      style: const TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xFF26382B),
+                      ),
                     ),
                   ),
                 ],
@@ -128,7 +160,9 @@ class _SakaBaliScreenState extends State<SakaBaliScreen> {
 
             const SizedBox(height: 16),
 
-            // Kartu Detail Hasil Saka Bali
+            // ==================================================
+            // KARTU HASIL SAKA BALI
+            // ==================================================
             Card(
               elevation: 2,
               shape: RoundedRectangleBorder(
@@ -136,16 +170,25 @@ class _SakaBaliScreenState extends State<SakaBaliScreen> {
               ),
               color: Colors.white,
               child: Padding(
-                padding: const EdgeInsets.all(18.0),
+                padding: const EdgeInsets.all(18),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Row(
-                      children: const [
-                        Icon(Icons.brightness_7, color: Colors.deepOrange, size: 24),
+                    // ==========================================
+                    // HEADER
+                    // ==========================================
+                    const Row(
+                      children: [
+                        Icon(
+                          Icons.wb_sunny,
+                          color: Color(0xFF4F7D58),
+                          size: 24,
+                        ),
+
                         SizedBox(width: 8),
+
                         Text(
-                          'Detail Saka Bali',
+                          'Detail Kalender Saka',
                           style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
@@ -154,24 +197,29 @@ class _SakaBaliScreenState extends State<SakaBaliScreen> {
                         ),
                       ],
                     ),
+
                     const Divider(height: 20, thickness: 1),
 
-                    // Badge Utama Tahun Saka
+                    // ==========================================
+                    // TAHUN SAKA
+                    // ==========================================
                     Center(
                       child: Container(
                         padding: const EdgeInsets.symmetric(
-                            horizontal: 20, vertical: 12),
+                          horizontal: 20,
+                          vertical: 12,
+                        ),
                         decoration: BoxDecoration(
-                          color: const Color(0xFFFBE9E7),
+                          color: const Color(0xFFF4E8D7),
                           borderRadius: BorderRadius.circular(12),
-                          border: Border.all(color: const Color(0xFFFFCCBC)),
+                          border: Border.all(color: const Color(0xFFE3C9A5)),
                         ),
                         child: Text(
-                          'Tahun ${sakaInfo.tahunSaka} Saka',
-                          style: TextStyle(
+                          'Tahun Saka ${sakaInfo.tahunSaka}',
+                          style: const TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
-                            color: Colors.deepOrange.shade900,
+                            color: Color(0xFF9A6A32),
                           ),
                         ),
                       ),
@@ -179,10 +227,67 @@ class _SakaBaliScreenState extends State<SakaBaliScreen> {
 
                     const SizedBox(height: 20),
 
-                    // Detail Sasih dan Wuku
-                    _buildRowItem('Sasih (Bulan Saka)', sakaInfo.sasih),
-                    const SizedBox(height: 10),
-                    _buildRowItem('Wuku (Siklus 210 Hari)', sakaInfo.wuku, isBold: true),
+                    // ==========================================
+                    // SASIH
+                    // ==========================================
+                    _buildRowItem('Sasih', sakaInfo.sasih),
+
+                    const SizedBox(height: 12),
+
+                    // ==========================================
+                    // WUKU
+                    // ==========================================
+                    _buildRowItem('Wuku', sakaInfo.wuku),
+
+                    const SizedBox(height: 12),
+
+                    // ==========================================
+                    // PANCAWARA
+                    // ==========================================
+                    _buildRowItem('Pancawara', sakaInfo.pancawara),
+
+                    const SizedBox(height: 12),
+
+                    // ==========================================
+                    // SAPTAWARA
+                    // ==========================================
+                    _buildRowItem('Saptawara', sakaInfo.saptawara),
+
+                    const SizedBox(height: 20),
+
+                    // ==========================================
+                    // INFORMASI SIKLUS
+                    // ==========================================
+                    Container(
+                      width: double.infinity,
+                      padding: const EdgeInsets.all(14),
+                      decoration: BoxDecoration(
+                        color: const Color(0xFFE7EFE8),
+                        borderRadius: BorderRadius.circular(12),
+                        border: Border.all(color: const Color(0xFFC7DBC9)),
+                      ),
+                      child: const Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Icon(Icons.info_outline, color: Color(0xFF4F7D58)),
+
+                          SizedBox(width: 10),
+
+                          Expanded(
+                            child: Text(
+                              'Kalender Saka Bali menggunakan sistem '
+                              'penanggalan tradisional Bali. Informasi '
+                              'wuku, pancawara, dan saptawara mengikuti '
+                              'siklus kalender Bali.',
+                              style: TextStyle(
+                                fontSize: 13,
+                                color: Color(0xFF66736A),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -193,20 +298,32 @@ class _SakaBaliScreenState extends State<SakaBaliScreen> {
     );
   }
 
-  Widget _buildRowItem(String label, String value, {bool isBold = false}) {
+  // ============================================================
+  // WIDGET BARIS INFORMASI
+  // ============================================================
+
+  Widget _buildRowItem(String label, String value) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(
-          label,
-          style: const TextStyle(fontSize: 14, color: Color(0xFF66736A)),
+        Expanded(
+          child: Text(
+            label,
+            style: const TextStyle(fontSize: 14, color: Color(0xFF66736A)),
+          ),
         ),
-        Text(
-          value,
-          style: TextStyle(
-            fontSize: 14,
-            fontWeight: isBold ? FontWeight.bold : FontWeight.w600,
-            color: isBold ? const Color(0xFF4F7D58) : const Color(0xFF26382B),
+
+        const SizedBox(width: 10),
+
+        Flexible(
+          child: Text(
+            value,
+            textAlign: TextAlign.right,
+            style: const TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.w600,
+              color: Color(0xFF26382B),
+            ),
           ),
         ),
       ],
