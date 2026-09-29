@@ -60,7 +60,7 @@ class KalenderScreen extends StatelessWidget {
           const SizedBox(height: 12),
 
           KartuMenu(
-            judul: 'Konversi Tanggal Hijriah',
+            judul: 'Kalender Hijriah',
             deskripsi: 'Mengubah tanggal Masehi menjadi tanggal Hijriah.',
             ketikaDitekan: () {
               Navigator.push(
@@ -74,7 +74,7 @@ class KalenderScreen extends StatelessWidget {
 
           // Menu 2: Weton Jawa
           KartuMenu(
-            judul: 'Weton Jawa',
+            judul: 'Kalender Jawa',
             deskripsi: 'Perhitungan dan informasi Weton Jawa.',
             ketikaDitekan: () {
               Navigator.push(
@@ -88,7 +88,7 @@ class KalenderScreen extends StatelessWidget {
 
           // Menu 3: Saka Bali
           KartuMenu(
-            judul: 'Saka Bali',
+            judul: 'Kalender Saka Bali',
             deskripsi: 'Informasi kalender Saka Bali.',
             ketikaDitekan: () {
               Navigator.push(

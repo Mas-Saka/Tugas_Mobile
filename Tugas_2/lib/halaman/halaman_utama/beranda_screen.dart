@@ -227,35 +227,6 @@ class BerandaScreen extends StatelessWidget {
 
               const SizedBox(height: 14),
 
-              // LOGOUT
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: SizedBox(
-                  width: double.infinity,
-                  height: 46,
-                  child: OutlinedButton(
-                    onPressed: () async {
-                      await LayananAuth().logout();
-                    },
-                    style: OutlinedButton.styleFrom(
-                      foregroundColor: const Color.fromARGB(255, 229, 8, 8),
-                      side: const BorderSide(
-                        color: Color.fromARGB(255, 219, 99, 99),
-                      ),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(14),
-                      ),
-                    ),
-                    child: const Text(
-                      'KELUAR',
-                      style: TextStyle(fontWeight: FontWeight.w600),
-                    ),
-                  ),
-                ),
-              ),
-
-              const SizedBox(height: 28),
-
               const Text(
                 'KALENDER PERTANIAN DIGITAL',
                 style: TextStyle(
