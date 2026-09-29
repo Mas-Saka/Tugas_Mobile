@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/sidebar.dart';
 
 class AnggotaPage extends StatelessWidget {
   const AnggotaPage({super.key});
@@ -7,62 +8,7 @@ class AnggotaPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text('Anggota Kelompok')),
-
-      drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: [
-            DrawerHeader(
-              child: Text('Fitur Aplikasi', style: TextStyle(fontSize: 22)),
-            ),
-
-            ListTile(
-              title: Text('Dashboard'),
-              onTap: () {
-                Navigator.pushNamed(context, '/dashboard');
-              },
-            ),
-            ListTile(
-              title: Text('Aritmatika'),
-              onTap: () {
-                Navigator.pushNamed(context, '/Aritmatika');
-              },
-            ),
-
-            ListTile(
-              title: Text('Penjumlahan Total Angka Satu Field'),
-              onTap: () {
-                Navigator.pushNamed(
-                  context,
-                  '/Penjumlahan Total Angka Satu Field',
-                );
-              },
-            ),
-
-            ListTile(
-              title: Text('Ganjil / Genap'),
-              onTap: () {
-                Navigator.pushNamed(context, '/ganjil-genap');
-              },
-            ),
-
-            ListTile(
-              title: Text('Anggota Kelompok'),
-              onTap: () {
-                Navigator.pushNamed(context, '/anggota');
-              },
-            ),
-
-            ListTile(
-              title: Text('Logout'),
-              onTap: () {
-                Navigator.pushReplacementNamed(context, '/login');
-              },
-            ),
-          ],
-        ),
-      ),
-
+      drawer: const AppSidebar(),
       body: Padding(
         padding: EdgeInsets.all(20),
 

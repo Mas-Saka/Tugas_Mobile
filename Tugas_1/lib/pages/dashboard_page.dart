@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/sidebar.dart';
 
 class DashboardPage extends StatelessWidget {
   const DashboardPage({super.key});
@@ -6,182 +7,193 @@ class DashboardPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Dashboard')),
+      appBar: AppBar(title: const Text('Dashboard')),
+      drawer: const AppSidebar(),
+      body: SafeArea(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.fromLTRB(20, 10, 20, 30),
+          child: Center(
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(maxWidth: 900),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    width: double.infinity,
+                    padding: const EdgeInsets.all(22),
+                    decoration: BoxDecoration(
+                      color: const Color(0xFFE8F2EF),
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                    child: const Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Selamat datang di MathBuddy',
+                          style: TextStyle(
+                            fontSize: 23,
+                            fontWeight: FontWeight.w700,
+                            color: Color(0xFF24332F),
+                          ),
+                        ),
+                        SizedBox(height: 8),
+                        Text(
+                          'Gunakan menu di bawah untuk berlatih dan memahami operasi matematika dasar.',
+                          style: TextStyle(
+                            fontSize: 14,
+                            height: 1.5,
+                            color: Color(0xFF596963),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
 
-      drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: [
-            DrawerHeader(
-              child: Text('Fitur Aplikasi', style: TextStyle(fontSize: 30)),
-            ),
-            ListTile(
-              title: Text('Dashboard'),
-              onTap: () {
-                Navigator.pushNamed(context, '/dashboard');
-              },
-            ),
-            ListTile(
-              title: Text('Aritmatika'),
-              onTap: () {
-                Navigator.pushNamed(context, '/Aritmatika');
-              },
-            ),
+                  const SizedBox(height: 28),
 
-            ListTile(
-              title: Text('Penjumlahan Total Angka Satu Field'),
-              onTap: () {
-                Navigator.pushNamed(
-                  context,
-                  '/Penjumlahan Total Angka Satu Field',
-                );
-              },
-            ),
+                  const Text(
+                    'Materi Pembelajaran',
+                    style: TextStyle(
+                      fontSize: 19,
+                      fontWeight: FontWeight.w700,
+                      color: Color(0xFF24332F),
+                    ),
+                  ),
 
-            ListTile(
-              title: Text('Ganjil / Genap'),
-              onTap: () {
-                Navigator.pushNamed(context, '/ganjil-genap');
-              },
-            ),
+                  const SizedBox(height: 6),
 
-            ListTile(
-              title: Text('Anggota Kelompok'),
-              onTap: () {
-                Navigator.pushNamed(context, '/anggota');
-              },
-            ),
+                  const Text(
+                    'Pilih materi yang ingin kamu pelajari.',
+                    style: TextStyle(fontSize: 13, color: Color(0xFF71807B)),
+                  ),
 
-            ListTile(
-              title: Text('Logout'),
-              onTap: () {
-                Navigator.pushReplacementNamed(context, '/login');
-              },
+                  const SizedBox(height: 16),
+
+                  LayoutBuilder(
+                    builder: (context, constraints) {
+                      int columns = 1;
+
+                      if (constraints.maxWidth >= 650) {
+                        columns = 2;
+                      }
+
+                      return GridView.count(
+                        crossAxisCount: columns,
+                        crossAxisSpacing: 14,
+                        mainAxisSpacing: 14,
+                        childAspectRatio: columns == 1 ? 3.0 : 2.0,
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        children: [
+                          _buildMenuCard(
+                            context,
+                            icon: Icons.calculate_outlined,
+                            title: 'Aritmatika Dasar',
+                            description:
+                                'Latihan penjumlahan, pengurangan, perkalian, dan pembagian.',
+                            route: '/Aritmatika',
+                          ),
+                          _buildMenuCard(
+                            context,
+                            icon: Icons.functions_outlined,
+                            title: 'Hitung Total Angka',
+                            description:
+                                'Masukkan beberapa angka dan hitung jumlah keseluruhannya.',
+                            route: '/Penjumlahan Total Angka Satu Field',
+                          ),
+                          _buildMenuCard(
+                            context,
+                            icon: Icons.numbers_outlined,
+                            title: 'Cek Ganjil/Genap',
+                            description:
+                                'Periksa apakah sebuah angka termasuk ganjil atau genap.',
+                            route: '/ganjil-genap',
+                          ),
+                          _buildMenuCard(
+                            context,
+                            icon: Icons.groups_outlined,
+                            title: 'Anggota Kelompok',
+                            description:
+                                'Lihat informasi anggota kelompok MathBuddy.',
+                            route: '/anggota',
+                          ),
+                        ],
+                      );
+                    },
+                  ),
+                ],
+              ),
             ),
-          ],
+          ),
         ),
       ),
+    );
+  }
 
-      body: Padding(
-        padding: EdgeInsets.all(20),
-        child: Column(
+  Widget _buildMenuCard(
+    BuildContext context, {
+    required IconData icon,
+    required String title,
+    required String description,
+    required String route,
+  }) {
+    return InkWell(
+      borderRadius: BorderRadius.circular(14),
+      onTap: () {
+        Navigator.pushNamed(context, route);
+      },
+      child: Container(
+        padding: const EdgeInsets.all(18),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(14),
+          border: Border.all(color: const Color(0xFFE1E8E5)),
+        ),
+        child: Row(
           children: [
-            Text(
-              'Selamat Datang di Dashboard',
-              style: TextStyle(
-                fontSize: 28,
-                fontWeight: FontWeight.bold,
-                fontFamily: 'Roboto',
+            Container(
+              width: 48,
+              height: 48,
+              decoration: BoxDecoration(
+                color: const Color(0xFFE8F2EF),
+                borderRadius: BorderRadius.circular(12),
               ),
+              child: Icon(icon, color: const Color(0xFF2F7D6D), size: 24),
             ),
 
-            Text(
-              'Pilih fitur yang ingin digunakan',
-              style: TextStyle(fontSize: 18),
-            ),
+            const SizedBox(width: 15),
 
-            SizedBox(height: 30),
-
-            SizedBox(
-              width: double.infinity,
-              height: 65,
-              child: ElevatedButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, '/Aritmatika');
-                },
-                style: ElevatedButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
+            Expanded(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    title,
+                    style: const TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w700,
+                      color: Color(0xFF283631),
+                    ),
                   ),
-                ),
-                child: Row(
-                  children: [
-                    SizedBox(width: 15),
-                    Text('Aritmatika', style: TextStyle(fontSize: 18)),
-                    Spacer(),
-                    Icon(Icons.arrow_forward_ios),
-                  ],
-                ),
-              ),
-            ),
-
-            SizedBox(height: 15),
-
-            SizedBox(
-              width: double.infinity,
-              height: 65,
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
+                  const SizedBox(height: 5),
+                  Text(
+                    description,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    style: const TextStyle(
+                      fontSize: 12,
+                      height: 1.35,
+                      color: Color(0xFF71807B),
+                    ),
                   ),
-                ),
-                onPressed: () {
-                  Navigator.pushNamed(
-                    context,
-                    '/Penjumlahan Total Angka Satu Field',
-                  );
-                },
-                child: Row(
-                  children: [
-                    SizedBox(width: 15),
-                    Text('Total Angka', style: TextStyle(fontSize: 18)),
-                    Spacer(),
-                    Icon(Icons.arrow_forward_ios),
-                  ],
-                ),
+                ],
               ),
             ),
 
-            SizedBox(height: 15),
+            const SizedBox(width: 8),
 
-            SizedBox(
-              width: double.infinity,
-              height: 65,
-              child: ElevatedButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, '/ganjil-genap');
-                },
-                style: ElevatedButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                ),
-                child: Row(
-                  children: [
-                    SizedBox(width: 15),
-                    Text('Ganjil / Genap', style: TextStyle(fontSize: 18)),
-                    Spacer(),
-                    Icon(Icons.arrow_forward_ios),
-                  ],
-                ),
-              ),
-            ),
-
-            SizedBox(height: 15),
-
-            SizedBox(
-              width: double.infinity,
-              height: 65,
-              child: ElevatedButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, '/anggota');
-                },
-                style: ElevatedButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                ),
-                child: Row(
-                  children: [
-                    SizedBox(width: 15),
-                    Text('Anggota Kelompok', style: TextStyle(fontSize: 18)),
-                    Spacer(),
-                    Icon(Icons.arrow_forward_ios),
-                  ],
-                ),
-              ),
-            ),
+            const Icon(Icons.chevron_right, color: Color(0xFF899590)),
           ],
         ),
       ),

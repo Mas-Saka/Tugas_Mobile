@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:decimal/decimal.dart';
+import '../widgets/sidebar.dart';
 
 class ArithmeticPage extends StatefulWidget {
   const ArithmeticPage({super.key});
@@ -9,180 +11,219 @@ class ArithmeticPage extends StatefulWidget {
 
 class _ArithmeticPageState extends State<ArithmeticPage> {
   final TextEditingController angka1Controller = TextEditingController();
+
   final TextEditingController angka2Controller = TextEditingController();
 
-  String hasil = '0';
+  String hasil = '';
 
   void hitung(String operasi) {
-    double? angka1 = double.tryParse(angka1Controller.text);
-    double? angka2 = double.tryParse(angka2Controller.text);
+    Decimal? angka1 = Decimal.tryParse(angka1Controller.text);
+    Decimal? angka2 = Decimal.tryParse(angka2Controller.text);
 
     if (angka1 == null || angka2 == null) {
       setState(() {
-        hasil = 'Masukkan angka yang valid';
+        hasil = 'Masukkan angka yang valid.';
       });
       return;
     }
 
-    double hasilPerhitungan;
+    if (operasi == '/' && angka2 == Decimal.zero) {
+      setState(() {
+        hasil = 'Tidak dapat membagi dengan nol.';
+      });
+      return;
+    }
 
-    switch (operasi) {
-      case '+':
-        hasilPerhitungan = angka1 + angka2;
-        break;
+    Decimal hasilHitung = Decimal.zero;
 
-      case '-':
-        hasilPerhitungan = angka1 - angka2;
-        break;
-
-      case '×':
-        hasilPerhitungan = angka1 * angka2;
-        break;
-
-      case '÷':
-        if (angka2 == 0) {
-          setState(() {
-            hasil = 'Tidak bisa dibagi 0';
-          });
-          return;
-        }
-
-        hasilPerhitungan = angka1 / angka2;
-        break;
-
-      default:
-        hasilPerhitungan = 0;
+    if (operasi == '+') {
+      hasilHitung = angka1 + angka2;
+    } else if (operasi == '-') {
+      hasilHitung = angka1 - angka2;
+    } else if (operasi == '×') {
+      hasilHitung = angka1 * angka2;
+    } else if (operasi == '/') {
+      setState(() {
+        hasil = (angka1 / angka2)
+            .toDecimal(scaleOnInfinitePrecision: 20)
+            .toString();
+      });
+      return;
     }
 
     setState(() {
-      hasil = hasilPerhitungan.toString();
+      hasil = hasilHitung.toString();
     });
+
+    setState(() {
+      hasil = hasilHitung.toString();
+    });
+  }
+
+  @override
+  void dispose() {
+    angka1Controller.dispose();
+    angka2Controller.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Aritmatika'),
+      appBar: AppBar(title: const Text('Aritmatika Dasar')),
+      drawer: const AppSidebar(),
+      body: SafeArea(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(20),
+          child: Center(
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(maxWidth: 650),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    'Latihan Operasi Dasar',
+                    style: TextStyle(
+                      fontSize: 23,
+                      fontWeight: FontWeight.w700,
+                      color: Color(0xFF24332F),
+                    ),
+                  ),
+
+                  const SizedBox(height: 7),
+
+                  const Text(
+                    'Masukkan dua angka, lalu pilih operasi yang ingin digunakan.',
+                    style: TextStyle(fontSize: 14, color: Color(0xFF71807B)),
+                  ),
+
+                  const SizedBox(height: 24),
+
+                  Container(
+                    padding: const EdgeInsets.all(20),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(15),
+                      border: Border.all(color: const Color(0xFFE1E8E5)),
+                    ),
+                    child: Column(
+                      children: [
+                        TextField(
+                          controller: angka1Controller,
+                          keyboardType: const TextInputType.numberWithOptions(
+                            decimal: true,
+                            signed: true,
+                          ),
+                          decoration: const InputDecoration(
+                            labelText: 'Angka pertama',
+                          ),
+                        ),
+
+                        const SizedBox(height: 14),
+
+                        TextField(
+                          controller: angka2Controller,
+                          keyboardType: const TextInputType.numberWithOptions(
+                            decimal: true,
+                            signed: true,
+                          ),
+                          decoration: const InputDecoration(
+                            labelText: 'Angka kedua',
+                          ),
+                        ),
+
+                        const SizedBox(height: 22),
+
+                        const Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            'Pilih operasi',
+                            style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w600,
+                              color: Color(0xFF3D4B46),
+                            ),
+                          ),
+                        ),
+
+                        const SizedBox(height: 10),
+
+                        Row(
+                          children: [
+                            _operationButton('+'),
+                            const SizedBox(width: 8),
+                            _operationButton('-'),
+                            const SizedBox(width: 8),
+                            _operationButton('×'),
+                            const SizedBox(width: 8),
+                            _operationButton('/'),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+
+                  const SizedBox(height: 18),
+
+                  if (hasil.isNotEmpty)
+                    Container(
+                      width: double.infinity,
+                      padding: const EdgeInsets.all(20),
+                      decoration: BoxDecoration(
+                        color: const Color(0xFFE8F2EF),
+                        borderRadius: BorderRadius.circular(15),
+                        border: Border.all(color: const Color(0xFFD2E5DF)),
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text(
+                            'Hasil',
+                            style: TextStyle(
+                              fontSize: 13,
+                              color: Color(0xFF60706A),
+                            ),
+                          ),
+
+                          const SizedBox(height: 5),
+
+                          Text(
+                            hasil,
+                            style: const TextStyle(
+                              fontSize: 28,
+                              fontWeight: FontWeight.w700,
+                              color: Color(0xFF2F7D6D),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                ],
+              ),
+            ),
+          ),
+        ),
       ),
+    );
+  }
 
-      body: Padding(
-        padding: const EdgeInsets.all(20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            const Text(
-              'Operasi Aritmatika',
-              style: TextStyle(
-                fontSize: 26,
-                fontWeight: FontWeight.bold,
-              ),
-              textAlign: TextAlign.center,
-            ),
-
-            const SizedBox(height: 30),
-
-            TextField(
-              controller: angka1Controller,
-              keyboardType: TextInputType.number,
-              decoration: const InputDecoration(
-                labelText: 'Angka Pertama',
-                border: OutlineInputBorder(),
-              ),
-            ),
-
-            const SizedBox(height: 15),
-
-            TextField(
-              controller: angka2Controller,
-              keyboardType: TextInputType.number,
-              decoration: const InputDecoration(
-                labelText: 'Angka Kedua',
-                border: OutlineInputBorder(),
-              ),
-            ),
-
-            const SizedBox(height: 25),
-
-            Row(
-              children: [
-                Expanded(
-                  child: ElevatedButton(
-                    onPressed: () => hitung('+'),
-                    child: const Text(
-                      '+',
-                      style: TextStyle(fontSize: 24),
-                    ),
-                  ),
-                ),
-
-                const SizedBox(width: 10),
-
-                Expanded(
-                  child: ElevatedButton(
-                    onPressed: () => hitung('-'),
-                    child: const Text(
-                      '-',
-                      style: TextStyle(fontSize: 24),
-                    ),
-                  ),
-                ),
-
-                const SizedBox(width: 10),
-
-                Expanded(
-                  child: ElevatedButton(
-                    onPressed: () => hitung('×'),
-                    child: const Text(
-                      '×',
-                      style: TextStyle(fontSize: 24),
-                    ),
-                  ),
-                ),
-
-                const SizedBox(width: 10),
-
-                Expanded(
-                  child: ElevatedButton(
-                    onPressed: () => hitung('÷'),
-                    child: const Text(
-                      '÷',
-                      style: TextStyle(fontSize: 24),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-
-            const SizedBox(height: 30),
-
-            Card(
-              child: Padding(
-                padding: const EdgeInsets.all(20),
-                child: Column(
-                  children: [
-                    const Text(
-                      'Hasil',
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-
-                    const SizedBox(height: 10),
-
-                    Text(
-                      hasil,
-                      style: const TextStyle(
-                        fontSize: 28,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ],
+  Widget _operationButton(String operasi) {
+    return Expanded(
+      child: OutlinedButton(
+        onPressed: () {
+          hitung(operasi);
+        },
+        style: OutlinedButton.styleFrom(
+          minimumSize: const Size(0, 46),
+          foregroundColor: const Color(0xFF2F7D6D),
+          side: const BorderSide(color: Color(0xFFB9D5CC)),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+        ),
+        child: Text(
+          operasi,
+          style: const TextStyle(fontSize: 19, fontWeight: FontWeight.w600),
         ),
       ),
     );
